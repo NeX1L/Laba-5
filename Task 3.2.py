@@ -1,40 +1,41 @@
-from matplotlib import pyplot as plt
 import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+x = np.linspace(0, 2, 10)
+y = np.linspace(0, 2, 10)
 
-x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-y = x ** 2
-z1 = pow(x, 0.25) + pow(y, 0.25)
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.plot(x, y, z1, label='parametric curve', color='#123456')
-plt.title('График функции z1')
-plt.show()
+X, Y = np.meshgrid(x, y)
 
-z2 = pow(x, 2) - pow(y, 2)
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.plot(x, y, z2, label='parametric curve', color='#abcdef')
-plt.title('График функции z2')
-plt.show()
+def Formule1(x,y):
+    return np.power(x, 0.25) + np.power(y, 0.25)
 
-z3 = 2 * x + 3 * y
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.plot(x, y, z3, label='parametric curve', color='#aab591')
-plt.title('График функции z3')
-plt.show()
+def Formule2(x,y):
+    return np.power(x, 2) - np.power(y, 2)
 
-z4 = pow(x, 2) + pow(y, 2)
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.plot(x, y, z4, label='parametric curve', color='#9343ff')
-plt.title('График функции z4')
-plt.show()
+def Formule3(x, y):
+    return 2*x + 3*y
 
-z5 = 2 + 2 * x + 2 * y - pow(x, 2) - pow(y, 2)
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.plot(x, y, z5, label='parametric curve', color='#7f3eab')
-plt.title('График функции z5')
-plt.show()
+def Formule4(x, y):
+    return np.power(x, 2) + np.power(y, 2)
+
+def Formule5(x, y):
+    return 2 + 2*x + 2*y - np.power(x, 2) - np. power(y, 2)
+
+def plot_function(Formule, title):
+    Z = Formule(X, Y)
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.plot_surface(X, Y, Z, cmap='magma')
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    ax.set_title(title)
+    plt.show()
+
+
+plot_function(Formule1, 'z=x^(1/4)+y^(1/4)')
+plot_function(Formule2, 'z=x^2-y^2')
+plot_function(Formule3, 'z=2x+3y')
+plot_function(Formule4, 'z=x^2+y^2')
+plot_function(Formule5, 'z=2+2x+2y-x^2-y^2')
